@@ -1,0 +1,73 @@
+<div class="f-solicitud-width">
+
+    <fieldset>
+
+      <legend>Solicitud de nuevo proyecto o evolutivo</legend>
+
+      <div *ngIf="error" class="alert alert-info alert-dismissible fade show" role="alert">
+        <button (click)="error = null" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <p>
+          Los siguientes campos son obligatorios:
+        </p>
+        <p class="font-weight-bold">
+          {{error}}
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre</label>
+        <input [(ngModel)]="solicitud.nombre" type="text" class="form-control" placeholder="Nombre del proyecto o evolutivo" required>
+      </div>
+
+      <div class="form-group row">
+
+        <div class="col-4">
+          <label>Tipo</label>
+          <select [(ngModel)]="solicitud.tipo" class="form-control" required>
+            <option value="0">Evolutivo</option>
+            <option value="1">Proyecto</option>
+          </select>
+        </div>
+
+        <div class="col-4">
+          <label>Importancia</label>
+          <select [(ngModel)]="solicitud.importancia" class="form-control" required>
+            <option value="0">Baja</option>
+            <option value="1" selected>Media</option>
+            <option value="2">Alta</option>
+            <option value="99">Urgente</option>
+          </select>
+        </div>
+
+        <div class="col-4">
+          <div class="form-group">
+            <label>F. cambio normativo</label>
+            <input [(ngModel)]="solicitud.fechaCambioNormativo" type="date" class="form-control" placeholder="Fecha de cambio normativo">
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div class="form-group">
+        <label>Justificación de negocio</label>
+        <textarea [(ngModel)]="solicitud.justificacionNegocio" rows="10" class="form-control" placeholder="Justificación de negocio" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Áreas de desarrollo involucradas</label>
+        <textarea [(ngModel)]="solicitud.areasInvolucradas" class="form-control" placeholder="Áreas de desarrollo involucradas" required></textarea>
+      </div>
+
+      <button (click)="onSubmit()" class="btn btn-info">Enviar</button>
+
+    </fieldset>
+
+
+
+</div>
+
+
