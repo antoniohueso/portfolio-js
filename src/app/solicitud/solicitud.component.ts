@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Solicitud} from '../app.entities';
+import {Desarrollo, Solicitud} from '../app.entities';
+import {DesarrolloService} from '../services/desarrollo.service';
 
 @Component({
   selector: 'app-solicitud',
@@ -12,9 +13,14 @@ export class SolicitudComponent implements OnInit {
 
   error = null;
 
-  constructor() { }
+  constructor(private desarrolloService: DesarrolloService) { }
 
   ngOnInit() {
+    this.desarrolloService.getDesarrollos()
+      .subscribe(d => {
+        console.log('OK GET: ', d);
+      });
+
   }
 
   onSubmit() {
@@ -30,6 +36,14 @@ export class SolicitudComponent implements OnInit {
       this.error = arr.join(', ')
       return;
     }
+
+    const desarrollo = new Desarrollo();
+    desarrollo.solicitud = this.solicitud;
+
+    this.desarrolloService.addDesarrollo(desarrollo)
+      .subscribe(d => {
+        console.log('OK: ', d);
+      });
 
     console.log(this.solicitud);
   }

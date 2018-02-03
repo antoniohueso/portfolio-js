@@ -6,6 +6,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { SolicitudComponent } from './solicitud/solicitud.component';
 import {FormsModule} from '@angular/forms';
+import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {InMemoryDataService} from './services/in-memory-data.service';
+import {HttpClientModule} from '@angular/common/http';
+import {DesarrolloService} from './services/desarrollo.service';
 
 
 @NgModule({
@@ -16,9 +20,13 @@ import {FormsModule} from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false })
+
   ],
-  providers: [],
+  providers: [DesarrolloService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
