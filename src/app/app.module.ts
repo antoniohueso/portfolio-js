@@ -6,25 +6,24 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { SolicitudComponent } from './solicitud/solicitud.component';
 import {FormsModule} from '@angular/forms';
-import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
-import {InMemoryDataService} from './services/in-memory-data.service';
 import {HttpClientModule} from '@angular/common/http';
 import {DesarrolloService} from './services/desarrollo.service';
+import { PlanificacionComponent } from './planificacion/planificacion.component';
+import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SolicitudComponent
+    SolicitudComponent,
+    PlanificacionComponent,
+    SolicitudesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false })
-
+    HttpClientModule
   ],
   providers: [DesarrolloService],
   bootstrap: [AppComponent]

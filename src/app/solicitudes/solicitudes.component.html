@@ -1,0 +1,27 @@
+<div class="container">
+
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>F.Creada</th>
+        <th>Solicitada por</th>
+        <th>Tipo</th>
+        <th>Importancia</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of desarrollos">
+        <td>{{d.id}}</td>
+        <td>{{d.nombre}}</td>
+        <td>{{d.fechaCreacion | date:"dd-MM-yyyy HH:mm:ss"}}</td>
+        <td>{{d.solicitadaPor}}</td>
+        <td>{{d.tipo}}</td>
+        <td>{{d.importancia}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+</div>

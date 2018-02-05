@@ -4,6 +4,7 @@
 
       <legend>Solicitud de nuevo proyecto o evolutivo</legend>
 
+      <!-- Mensage de error -->
       <div *ngIf="error" class="alert alert-info alert-dismissible fade show" role="alert">
         <button (click)="error = null" type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -16,24 +17,37 @@
         </p>
       </div>
 
+      <!-- Mensage de Ok -->
+      <div *ngIf="okMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+        <button (click)="okMessage = false" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+        <p class="font-weight-bold">
+          Su solicitud ha sido registrada (ID: {{id}})
+        </p>
+        <a routerLink="/solicitudes">Ir al panel de solicitudes</a>
+      </div>
+
+      <!-- Campos del formulario -->
       <div class="form-group">
         <label>Nombre</label>
-        <input [(ngModel)]="solicitud.nombre" type="text" class="form-control" placeholder="Nombre del proyecto o evolutivo" required>
+        <input [(ngModel)]="desarrollo.nombre" type="text" class="form-control" placeholder="Nombre del proyecto o evolutivo" required>
       </div>
 
       <div class="form-group row">
 
         <div class="col-4">
           <label>Tipo</label>
-          <select [(ngModel)]="solicitud.tipo" class="form-control" required>
-            <option value="0">Evolutivo</option>
+          <select [(ngModel)]="desarrollo.tipo" class="form-control" required>
+            <option value="0" selected>Evolutivo</option>
             <option value="1">Proyecto</option>
           </select>
         </div>
 
         <div class="col-4">
           <label>Importancia</label>
-          <select [(ngModel)]="solicitud.importancia" class="form-control" required>
+          <select [(ngModel)]="desarrollo.importancia" class="form-control" required>
             <option value="0">Baja</option>
             <option value="1" selected>Media</option>
             <option value="2">Alta</option>
@@ -44,7 +58,7 @@
         <div class="col-4">
           <div class="form-group">
             <label>F. cambio normativo</label>
-            <input [(ngModel)]="solicitud.fechaCambioNormativo" type="date" class="form-control" placeholder="Fecha de cambio normativo">
+            <input [(ngModel)]="desarrollo.fechaCambioNormativo" type="date" class="form-control" placeholder="Fecha de cambio normativo">
           </div>
         </div>
 
@@ -54,12 +68,12 @@
 
       <div class="form-group">
         <label>Justificación de negocio</label>
-        <textarea [(ngModel)]="solicitud.justificacionNegocio" rows="10" class="form-control" placeholder="Justificación de negocio" required></textarea>
+        <textarea [(ngModel)]="desarrollo.justificacionNegocio" rows="10" class="form-control" placeholder="Justificación de negocio" required></textarea>
       </div>
 
       <div class="form-group">
         <label>Áreas de desarrollo involucradas</label>
-        <textarea [(ngModel)]="solicitud.areasInvolucradas" class="form-control" placeholder="Áreas de desarrollo involucradas" required></textarea>
+        <textarea [(ngModel)]="desarrollo.areasInvolucradas" class="form-control" placeholder="Áreas de desarrollo involucradas" required></textarea>
       </div>
 
       <button (click)="onSubmit()" class="btn btn-info">Enviar</button>

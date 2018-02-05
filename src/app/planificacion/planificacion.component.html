@@ -1,0 +1,61 @@
+<div class="f-solicitud-width">
+
+  <fieldset>
+
+    <legend>Planificación de actividades: {{desarrollo.solicitud.nombre}}</legend>
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" (click)="add()" class="btn btn-info">Añadir actividad</button>
+      <button type="button" (click)="save()" class="btn btn-info">Guardar</button>
+      <button type="button" (click)="comenzar()" class="btn btn-info">Comenzar</button>
+    </div>
+
+
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>F.Comienzo</th>
+          <th>F.Fin</th>
+          <th>Duración</th>
+          <th>%Avance</th>
+          <th>Dependencias</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ac of desarrollo.planificacion.actividades">
+          <td>
+            {{ac.id}}
+          </td>
+          <td>
+            <input [(ngModel)]="ac.name" type="text" class="form-control-sm" placeholder="Nombre de la actividad" required>
+          </td>
+          <td>
+            <input [(ngModel)]="ac.startDate" type="date" class="form-control-sm" required>
+          </td>
+          <td>
+            <input [(ngModel)]="ac.endDate" type="date" class="form-control-sm" required>
+          </td>
+          <td>
+            <input [(ngModel)]="ac.duration" type="number" min="0" max="365" class="form-control-sm" required>
+          </td>
+
+          <td>
+            <input [(ngModel)]="ac.percentComplete" type="number" min="0" max="100" class="form-control-sm" required>
+          </td>
+
+          <td>
+            <input [(ngModel)]="ac.dependencies" type="text" class="form-control-sm" required>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div id="chart_id"></div>
+
+  </fieldset>
+
+
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Desarrollo, Solicitud} from '../app.entities';
+import {Desarrollo} from '../app.entities';
 import {DesarrolloService} from '../services/desarrollo.service';
 
 @Component({
@@ -9,47 +9,42 @@ import {DesarrolloService} from '../services/desarrollo.service';
 })
 export class SolicitudComponent implements OnInit {
 
-  solicitud: Solicitud = new Solicitud();
+  desarrollo = new Desarrollo();
+
+  id = null;
 
   error = null;
 
+  okMessage = false;
+
   constructor(private desarrolloService: DesarrolloService) { }
 
-  ngOnInit() {
-    this.desarrolloService.getDesarrollos()
-      .subscribe(d => {
-        console.log('OK GET: ', d);
-      });
-
-  }
+  ngOnInit() {}
 
   onSubmit() {
     let arr = [];
 
-    arr = this.required(arr, this.solicitud.nombre, 'Nombre');
-    arr = this.required(arr, this.solicitud.tipo, 'Tipo');
-    arr = this.required(arr, this.solicitud.importancia, 'Importancia');
-    arr = this.required(arr, this.solicitud.justificacionNegocio, 'Justificación de negocio');
-    arr = this.required(arr, this.solicitud.areasInvolucradas, 'Áreas involucradas');
+    arr = this.required(arr, this.desarrollo.nombre, 'Nombre');
+    arr = this.required(arr, this.desarrollo.tipo, 'Tipo');
+    arr = this.required(arr, this.desarrollo.importancia, 'Importancia');
+    arr = this.required(arr, this.desarrollo.justificacionNegocio, 'Justificación de negocio');
+    arr = this.required(arr, this.desarrollo.areasInvolucradas, 'Áreas involucradas');
 
     if (arr.length > 0) {
-      this.error = arr.join(', ')
+      this.error = arr.join(', ');
       return;
     }
 
-    const desarrollo = new Desarrollo();
-    desarrollo.solicitud = this.solicitud;
-
-    this.desarrolloService.addDesarrollo(desarrollo)
+    this.desarrolloService.addDesarrollo(this.desarrollo)
       .subscribe(d => {
-        console.log('OK: ', d);
+        this.id = d.id;
+        this.desarrollo = new Desarrollo();
+        this.okMessage = true;
       });
-
-    console.log(this.solicitud);
   }
 
   required(arr, field, msg) {
-    if (!field) {
+    if (field == null || field === 'undefined' || (typeof field === 'string'  && field.trim() === '')) {
       arr.push(msg);
     }
     return arr;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Desarrollo} from '../app.entities';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, tap, map} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
 
 const httpOptions = {
@@ -19,14 +19,17 @@ export class DesarrolloService {
   ) { }
 
   getDesarrollos(): Observable<Desarrollo[]> {
+
     return this.http.get<Desarrollo[]>(this.desarrollosUrl)
       .pipe(
+        map(desarrollos => desarrollos['content']),
         tap(desarrollos => console.log('getDesarrollos: ', desarrollos)),
         catchError(this.handleError('getDesarrollos', []))
       );
   }
 
   addDesarrollo(desarrollo: Desarrollo): Observable<Desarrollo> {
+
     return this.http.post<Desarrollo>(this.desarrollosUrl, desarrollo, httpOptions)
       .pipe(
         tap((d: Desarrollo) => console.log('addDesarrollo: ', d)),
@@ -37,7 +40,7 @@ export class DesarrolloService {
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
-      console.error(`${operation} failed: ${error}`);
+      console.error(`${operation} failed: ${error.status} ${error.statusText} : ${error.body.error}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);
